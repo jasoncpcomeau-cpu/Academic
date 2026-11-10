@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SyllaPlan</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◆</span>
+      <span>SyllaPlan</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="scan" role="tab">Scan</button>
+      <button class="tab" data-view="upcoming" role="tab">Upcoming</button>
+      <button class="tab" data-view="calendar" role="tab">Calendar</button>
+      <button class="tab" data-view="courses" role="tab">Courses</button>
+      <button class="tab" data-view="grades" role="tab">Grades</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SCAN -->
+    <section id="view-scan" class="view active">
+      <div class="hero">
+        <h1>Drop in a syllabus. Get every deadline.</h1>
+        <p class="muted">Upload a PDF, snap photos of the pages, or paste the text. SyllaPlan pulls out every assignment, exam, and grade weight so you can review it, add it to your calendar, and track your grade.</p>
+      </div>
+
+      <form id="scan-form" class="card">
+        <label id="dropzone" class="dropzone" for="file-input">
+          <input id="file-input" type="file" multiple accept="application/pdf,image/*,.txt,.md" hidden />
+          <span class="drop-icon" aria-hidden="true">⇪</span>
+          <strong>Choose files or drag them here</strong>
+          <span class="muted small">PDF, JPG, PNG, WebP, or TXT · up to 10 files, 25 MB each</span>
+        </label>
+        <ul id="file-list" class="file-list"></ul>
+
+        <details class="paste">
+          <summary>Or paste syllabus text</summary>
+          <textarea id="paste-text" rows="8" placeholder="Paste the syllabus here…"></textarea>
+        </details>
+
+        <div class="row">
+          <label class="field">
+            <span>First day of term <span class="muted small">(optional, helps with “Week 5” dates)</span></span>
+            <input id="term-start" type="date" />
+          </label>
+          <button id="scan-btn" class="btn primary" type="submit">Scan syllabus</button>
+        </div>
+        <p id="scan-status" class="status" role="status"></p>
+      </form>
+
+      <div id="review" class="hidden"></div>
+    </section>
+
+    <!-- UPCOMING -->
+    <section id="view-upcoming" class="view">
+      <div class="section-head">
+        <h2>Upcoming</h2>
+        <div class="controls">
+          <select id="upcoming-course"></select>
+          <label class="check"><input type="checkbox" id="show-done" /> Show completed</label>
+        </div>
+      </div>
+      <div id="upcoming-list"></div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section id="view-calendar" class="view">
+      <div class="section-head">
+        <h2 id="cal-title"></h2>
+        <div class="controls">
+          <button class="btn" id="cal-prev" aria-label="Previous month">‹</button>
+          <button class="btn" id="cal-today">Today</button>
+          <button class="btn" id="cal-next" aria-label="Next month">›</button>
+        </div>
+      </div>
+      <div id="calendar" class="calendar"></div>
+    </section>
+
+    <!-- COURSES -->
+    <section id="view-courses" class="view">
+      <div class="section-head">
+        <h2>Courses</h2>
+        <div class="controls">
+          <button class="btn" id="export-all-ics">Export all to calendar (.ics)</button>
+        </div>
+      </div>
+      <div id="course-list"></div>
+    </section>
+
+    <!-- GRADES -->
+    <section id="view-grades" class="view">
+      <div class="section-head">
+        <h2>Grade calculator</h2>
+        <div class="controls"><select id="grades-course"></select></div>
+      </div>
+      <div id="grades"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
