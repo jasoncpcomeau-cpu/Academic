@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Anthropic from "@anthropic-ai/sdk";
@@ -8,6 +9,16 @@ import { SyllabusSchema } from "./schema.js";
 import { mockSyllabus } from "./mock.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
+
+// Load settings such as ANTHROPIC_API_KEY from a .env file next to this script, if present.
+const envFile = path.join(here, ".env");
+if (fs.existsSync(envFile)) {
+  for (const line of fs.readFileSync(envFile, "utf8").split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*?)\s*$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+}
+
 const PORT = Number(process.env.PORT) || 3000;
 const MOCK = process.env.SYLLABUS_MOCK === "1";
 const MODEL = process.env.SYLLABUS_MODEL || "claude-opus-5-5";

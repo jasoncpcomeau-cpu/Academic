@@ -15,7 +15,9 @@ Everything is stored in your browser (localStorage). Nothing is saved on the ser
 
 ## Run it
 
-Requires Node 20+ and an Anthropic API key.
+**New to this?** Follow the step-by-step guide in [HOW-TO-RUN.md](HOW-TO-RUN.md). After a one-time setup, you start the app by double-clicking `Start-Windows.bat` or `Start-Mac.command`.
+
+From a terminal: requires Node 20+ and an Anthropic API key. The key can also go in a `.env` file in this folder (`ANTHROPIC_API_KEY=sk-ant-...`).
 
 ```bash
 cd syllabus-scanner
